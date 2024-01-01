@@ -33,12 +33,14 @@ router.route("/register").post(expressAsyncHandler( async (req, res)=>{
     }
     
     const hashpassword = await bcrypt.hash(password, 10);
-    
+const userID = "012345678901234567890123";
+
     const userCreated = await USER.create({
-        name,
-        email,
-        role,
-        password: hashpassword
+      name,
+      email,
+      role,
+      password: hashpassword,
+      user_id: userID
     });
     res.status(200).json({success: "User Registered", data: userCreated})
 }));
