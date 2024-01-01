@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const dbSchema = mongoose.Schema({
     user_id:{
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: function () {
+            // Make user_id required only for roles other than super_admin and admin
+            return this.role !== 'super_admin' && this.role !== 'admin';
+        },
         ref: "registereduser"
     },
     name: {
